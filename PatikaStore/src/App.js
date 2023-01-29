@@ -1,20 +1,14 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+import React from "react";
+import { View, Text, FlatList } from "react-native";
+import Navbar from "./components/Navbar";
+import Card from "./components/Card";
+import productData from "../data.json";
+const App = () => {
+  return(
+    <View style={{flex: 1}}>
+      <FlatList ListHeaderComponent={() => <Navbar title="PATIKASTORE" />} horizontal={false} numColumns={2} data={productData} renderItem={({item}) => <Card product={item} />} />
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
