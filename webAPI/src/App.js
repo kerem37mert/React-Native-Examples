@@ -1,18 +1,26 @@
-import React from "react";
-import { Button, SafeAreaView, Text } from "react-native";
+import React, { useState } from "react";
+import { Button, SafeAreaView, Text, FlatList } from "react-native";
 import axios from "axios";
+import UserCard from "./components/UserCard/UserCard";
 
 const App = () => {
 
-  function fetchData(){
-    axios.get("https://jsonplaceholder.typicode.com/users")
-    .then(response => console.log(response))
-    .catch(error => console.log(error));
+  const [userList, setUserList] = useState([]);
+
+  async function fetchData(){
+    const response = await axios.get("https://jsonplaceholder.typicode.com/users");
+
+    setUserList(response);
+    console.log(response);
+  }
+
+  const renderUser = ({item}) => {
+    <UserCard name={item.name}></UserCard>
   }
 
   return(
     <SafeAreaView>
-      <Text>HELLO API</Text>
+      <FlatList data={userList} renderItem={renderUser} />
       <Button title="Click" onPress={fetchData} />
     </SafeAreaView>
   );
